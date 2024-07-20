@@ -1,0 +1,111 @@
+<div [formGroup]="formEmpleado" style="display: flex; flex-direction: column; gap: 1.5rem;">
+    <div style="display: flex; gap: 1rem; flex-direction: column;">
+        <div *ngIf="{ results: filteredOptionsAprobador$ | async, loading: loadingAprobador$ | async } as obs"
+            style="background-color: #e7e7e7; border-radius: 1rem; display: flex; flex-wrap: wrap;">
+
+            <mat-form-field appearance="fill" [ngClass]="{'alert': !formEmpleado.get('client')?.value}"
+                style="padding: 1rem; flex: 1">
+                <input placeholder='Busca el producto por nombre' type="text" matInput formControlName="client"
+                    [matAutocomplete]="autoAprobador" (blur)="onFocusAutocompleteAprobador()" />
+
+                <mat-icon *ngIf="!c['client'].value" matSuffix>search</mat-icon>
+                <mat-icon *ngIf="c['client'].value" matSuffix class="icon_close"
+                    (click)="onClearAutocompleteAprobador()">close</mat-icon>
+
+                <mat-autocomplete [displayWith]="onDisplayFnAprobador" #autoAprobador="matAutocomplete"
+                    (optionSelected)="onOptionSelectedAprobador($event)">
+                    <mat-option *ngIf="obs.loading">
+                        Cargando...
+                    </mat-option>
+                    <mat-option disabled *ngIf="obs.results?.length === 0 && !obs.loading">
+                        No se encontraron resultados
+                    </mat-option>
+                    <ng-container *ngIf="!obs.loading">
+                        <mat-option *ngFor="let option of (obs.results)!| sortBy:'asc':'nombre'" [value]="option"
+                            [ngClass]="{'selected-option': option === c['client'].value}">
+
+                            <div class="services__products">
+                                <div
+                                    [innerHTML]="(option?.name) | firstLetterUppercase | highlight: toHighlightAprobador : c['client'].value">
+                                </div>
+
+                                <div
+                                    [innerHTML]="('S/' + option?.price) | firstLetterUppercase | highlight: toHighlightAprobador : c['client'].value">
+                                </div>
+                            </div>
+                        </mat-option>
+                    </ng-container>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+
+
+        <!-- Tabla de Servicios Productos -->
+        <ng-container>
+            <div class="table_container">
+                <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length != 0">
+                    <ng-container matColumnDef="product_name">
+                        <th mat-header-cell *matHeaderCellDef> Producto </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div style="min-width: 110px !important;">{{element.name_product}}</div>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef> Total de Venta: </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="quantity">
+                        <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-form-field appearance="outline" class="input_quantity">
+                                <input matInput [(ngModel)]="element.quantity"
+                                    (ngModelChange)="onQuantityChange(element)" [disabled]="element.offer_id != null"
+                                    [ngModelOptions]="{standalone: true}">
+                            </mat-form-field>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="uni_price">
+                        <th mat-header-cell *matHeaderCellDef> Precio Unitario </th>
+                        <td mat-cell *matCellDef="let element"> S/{{element.uni_price}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="total_price">
+                        <th mat-header-cell *matHeaderCellDef> Precio Total </th>
+                        <td mat-cell *matCellDef="let element"> S/{{element.total_price}} </td>
+                        <td mat-footer-cell *matFooterCellDef style="font-weight: 600;"> S/{{getTotalCost()}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div
+                                style="display: flex; flex-direction:row; justify-content: flex-end; align-items: flex-end;">
+                                <mat-icon class="delete" (click)="eliminarElemento(element)">delete_outline</mat-icon>
+                            </div>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+                </table>
+
+                <div style="display: flex; flex-direction: column; gap: 2rem; background-color: white; justify-content: center; padding: 2rem; align-items: center; color: grey; border-radius: 1rem;"
+                    *ngIf="dataSource.data.length == 0">
+                    <mat-icon svgIcon="not_found" />
+                    Empieza a agregar nuevos productos
+                </div>
+            </div>
+        </ng-container>
+
+
+        <div style="display: flex; flex-direction: row; justify-content: flex-end; gap: 1rem;">
+            <button mat-flat-button color="warn" (click)="limpiarCompra()">Cancelar</button>
+            <button mat-flat-button color="primary" (click)="realizarVenta()">Completar Venta</button>
+        </div>
+    </div>
+</div>

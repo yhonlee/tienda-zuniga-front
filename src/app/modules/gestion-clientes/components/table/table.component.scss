@@ -1,0 +1,57 @@
+.table_paginator_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.table_container {
+    border-radius: 1rem;
+    overflow: auto;
+}
+
+.table {
+    width: 100%;
+    border-radius: .8rem;
+}
+
+.table th,
+.table td {
+    vertical-align: middle !important;
+    border: none;
+}
+
+.table th {
+    color: #9a9a9a;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.table td {
+    color: #696969;
+}
+
+.table th:nth-child(n + 0):nth-child(-n + 5),
+.table td:nth-child(n + 0):nth-child(-n + 5) {
+    width: 20% !important;
+}
+
+:host ::ng-deep .table .mdc-data-table__content tr:hover {
+    background-color: whitesmoke !important;
+}
+
+.table {
+    mat-icon:active {
+        transform: scale(0.8);
+    }
+}
+
+
+.paginator {
+    border-radius: 1rem !important;
+}
+
+mat-icon {
+    color: grey;
+}

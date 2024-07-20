@@ -1,0 +1,20 @@
+<div class="dialog__content__button__header">
+    <button mat-icon-button [mat-dialog-close]="false" mat-dialog-close color="primary">
+        <mat-icon svgIcon="pop_up_without_close_cicle"></mat-icon>
+    </button>
+</div>
+
+<div class="dialog__content">
+
+    <img class="dialog__content__image" [src]="imgUrl" [alt]="imgUrl">
+
+    <p class="dialog__content__title">No se pudo realizar la acción</p>
+    <p class="dialog__content__subtitle">Se encontraron los siguientes errores:</p>
+
+    <ul>
+        <li *ngFor="let errorMessage of errorsMessages">
+            <div [innerHTML]=" errorMessage | safeHtml"></div>
+        </li>
+    </ul>
+
+</div>

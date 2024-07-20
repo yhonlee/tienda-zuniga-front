@@ -1,0 +1,20 @@
+.container_module {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: calc(100vh - 92px) !important;
+}
+
+.module_title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #4a68af
+}
+
+.table_component {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}

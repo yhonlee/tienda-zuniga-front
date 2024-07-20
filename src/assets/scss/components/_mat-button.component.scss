@@ -1,0 +1,144 @@
+@use "/./src/assets/scss/partials/partials" as *;
+
+.color-primary,
+.color-warn,
+.color-accent,
+.color-outline-primary,
+.color-outline-warn,
+.color-outline-accent,
+.color-link-primary,
+.color-link-warn,
+.color-link-accent {
+    width: 100px !important;
+    color: white !important;
+
+    &.mat-button,
+    &.mat-raised-button,
+    &.mat-stroked-button,
+    &.mat-flat-button {
+        border-radius: .5rem;
+        font-family: "poppins-SemiBold";
+        padding: 10rem !important;
+        box-shadow: none;
+        border: none;
+
+    }
+}
+
+.color-primary,
+.color-warn,
+.color-accent {
+    &:disabled {
+        opacity: 0.3;
+    }
+}
+
+
+.color-outline-primary,
+.color-outline-warn,
+.color-outline-accent {
+    &:disabled {
+        border: 2px solid $color-white-outline !important;
+        background-color: transparent !important;
+        color: $color-white-outline !important;
+        text-decoration: none !important;
+
+        &:hover {
+            border: 2px solid $color-white-outline !important;
+
+        }
+    }
+}
+
+.color-outline-primary {
+    background-color: transparent !important;
+}
+
+.color-link-primary,
+.color-link-warn,
+.color-link-accent {
+    &:disabled {
+        background-color: transparent !important;
+        color: $color-disabled-link !important;
+        text-decoration: underline !important;
+    }
+}
+
+//BEGIN COLOR HOVER
+$hover-colors: (
+    primary: $color-hover-primary,
+    warn: $color-hover-warn,
+    accent: $color-hover-accent
+);
+
+@each $name,
+$color in $hover-colors {
+    .color-#{$name}:not(:disabled):hover {
+        background-color: $color !important;
+    }
+}
+
+//END COLOR HOVER
+
+
+//BEGIN COLOR BACKGROUND
+@mixin color-background($color) {
+    background-color: $color !important;
+    color: $color-light !important;
+}
+
+$colors: (
+    primary: $color-primary,
+    warn: $color-warn,
+    accent: $color-accent
+);
+
+@each $color,
+$value in $colors {
+    .color-#{$color} {
+        @include color-background($value);
+       // color: red !important
+    }
+}
+
+//END COLOR BACKGROUND
+
+//BEGIN OUTLINE COLOR
+$outline-colors: (
+    primary: $color-primary,
+    warn: $color-warn,
+    accent: $color-accent
+);
+
+@each $name,
+$color in $outline-colors {
+    .color-outline-#{$name} {
+        border: 1px solid $color !important;
+        color: $color !important;
+    }
+
+    .color-outline-#{$name}:hover {
+        //  border: 2px solid $color !important;
+    }
+
+}
+
+//END OUTLINE COLOR
+
+//BEGIN LINK COLOR
+$link-colors: (
+    primary: $color-primary,
+    warn: $color-warn,
+    accent: $color-accent
+);
+
+@each $name,
+$color in $outline-colors {
+    .color-link-#{$name} {
+        color: $color !important;
+        background-color: transparent !important;
+        text-decoration: underline !important;
+    }
+}
+
+//END LINK COLOR

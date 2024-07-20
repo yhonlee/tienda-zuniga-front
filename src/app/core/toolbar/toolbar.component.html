@@ -1,0 +1,76 @@
+<div class="toolbar">
+    <div class="toolbar_menu">
+
+        <button mat-icon-button [matMenuTriggerFor]="menu_movil" class="menu">
+            <mat-icon svgIcon="menu" style="cursor: pointer;" />
+        </button>
+
+        <mat-menu class="modulos" #menu_movil="matMenu">
+            <button mat-menu-item [routerLink]="'/ventas'" routerLinkActive="active-link">
+                <mat-icon svgIcon="usuarios_ventas" />
+                <span> Realizar Venta</span>
+            </button>
+
+            <button mat-menu-item [routerLink]="'/gestion-ventas'" routerLinkActive="active-link" *ngIf="rol()">
+                <mat-icon svgIcon="ventas" />
+                <span> Gestión de Ventas</span>
+            </button>
+
+
+            <button mat-menu-item [routerLink]="'/gestion-clientes'" routerLinkActive="active-link" *ngIf="rol()">
+                <mat-icon svgIcon="clientes" />
+                <span> Gestión de Clientes</span>
+            </button>
+
+            <button mat-menu-item [routerLink]="'/gestion-productos'" routerLinkActive="active-link" *ngIf="rol()">
+                <mat-icon svgIcon="productos" />
+                <span> Gestión de Productos</span>
+            </button>
+
+            <button mat-menu-item [routerLink]="'/gestion-empleados'" routerLinkActive="active-link" *ngIf="rol()">
+                <mat-icon svgIcon="colaboradores" />
+                <span> Gestión de Empleados</span>
+            </button>
+
+            <button mat-menu-item [routerLink]="'/gestion-usuarios'" routerLinkActive="active-link" *ngIf="rol()">
+                <mat-icon svgIcon="users" />
+                <span> Gestión de Usuarios</span>
+            </button>
+
+            <button mat-menu-item [routerLink]="'/graficos-ventas'" routerLinkActive="active-link" *ngIf="rol()">
+                <mat-icon svgIcon="ventas_graphics" />
+                <span> Gráficos de Ventas</span>
+            </button>
+
+            <button mat-menu-item [routerLink]="'/predicciones'" routerLinkActive="active-link" *ngIf="rol()">
+                <mat-icon svgIcon="graficos" />
+                <span> Predicciones de Ventas</span>
+            </button>
+        </mat-menu>
+
+
+        <div class="toolbar_name">
+            <div style=" display: flex; flex-direction: row; gap: 0.3rem; align-items: center; cursor:pointer;"
+                [matMenuTriggerFor]="menu">
+
+                <div style="display: flex; flex-direction: column;">
+                    <div style="color: #4362AB; font-size: 15px; font-weight: 800;">Bienvenido</div>
+                    <div style="color: #4362AB; font-size: 15px;">{{this.user.name + ' ' + this.user.lastname}}</div>
+                </div>
+                <button mat-icon-button><mat-icon svgIcon="users"></mat-icon></button>
+
+            </div>
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openChangePassword()" *ngIf="!rol()">
+                    <mat-icon svgIcon="password" />
+                    <span>Editar Contraseña</span>
+                </button>
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>close</mat-icon>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+</div>

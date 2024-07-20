@@ -1,0 +1,133 @@
+<div [formGroup]="formEmpleado">
+    <div style="background-color: #e7e7e7; border-radius: 1rem; display: flex; flex-wrap: wrap;">
+
+        <div class="module_title" style=" padding-top: 1rem; padding-left: 1rem;" *ngIf="!edit_mode">
+            Realizar Venta
+        </div>
+
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; padding: 1rem; width: 100%;" *ngIf="!edit_mode">
+            <ng-container
+                *ngIf="{ results: filteredOptionsAprobador$ | async, loading: loadingAprobador$ | async } as obs">
+
+                <mat-form-field appearance="fill" [ngClass]="{'alert': !formEmpleado.get('client')?.value}"
+                    style="flex: 1 1 50%;">
+                    <input placeholder='Buscar por nombre del cliente' type="text" matInput formControlName="client"
+                        [matAutocomplete]="autoAprobador" (blur)="onFocusAutocompleteAprobador()" />
+
+                    <mat-icon *ngIf="!c['client'].value" matSuffix>search</mat-icon>
+                    <mat-icon *ngIf="c['client'].value" matSuffix class="icon_close"
+                        (click)="onClearAutocompleteAprobador()">close</mat-icon>
+
+                    <mat-autocomplete [displayWith]="onDisplayFnAprobador" #autoAprobador="matAutocomplete"
+                        (optionSelected)="onOptionSelectedAprobador($event)">
+                        <mat-option *ngIf="obs.loading">
+                            Cargando...
+                        </mat-option>
+                        <mat-option disabled *ngIf="obs.results?.length === 0 && !obs.loading">
+                            No se encontraron resultados
+                        </mat-option>
+                        <ng-container *ngIf="!obs.loading">
+                            <mat-option *ngFor="let option of (obs.results)!| sortBy:'asc':'nombre'" [value]="option"
+                                [ngClass]="{'selected-option': option === c['client'].value}">
+
+                                <div class="services__products">
+                                    <div
+                                        [innerHTML]="(option?.business_name) | firstLetterUppercase | highlight: toHighlightAprobador : c['client'].value">
+                                    </div>
+
+                                    <div
+                                        [innerHTML]="(option?.identification_document) | firstLetterUppercase | highlight: toHighlightAprobador : c['client'].value">
+                                    </div>
+                                </div>
+                            </mat-option>
+                        </ng-container>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </ng-container>
+
+
+
+            <!-- DNI -->
+            <ng-container *ngIf="{ results: filteredOptions$ | async, loading: loading$ | async } as obs">
+                <mat-form-field appearance="fill" [ngClass]="{'alert': !formEmpleado.get('client_document')?.value}"
+                    style="flex: 1 1 50%;">
+                    <input placeholder='Buscar por número de documento' type="text" matInput
+                        formControlName="client_document" [matAutocomplete]="auto" (blur)="onFocusAutocomplete()" />
+
+                    <mat-icon *ngIf="!a['client_document'].value" matSuffix>search</mat-icon>
+                    <mat-icon *ngIf="a['client_document'].value" matSuffix class="icon_close"
+                        (click)="onClearAutocomplete()">close</mat-icon>
+
+                    <mat-autocomplete [displayWith]="onDisplayFn" #auto="matAutocomplete"
+                        (optionSelected)="onOptionSelected($event)">
+                        <mat-option *ngIf="obs.loading">
+                            Cargando...
+                        </mat-option>
+                        <mat-option disabled *ngIf="obs.results?.length === 0 && !obs.loading">
+                            No se encontraron resultados
+                        </mat-option>
+                        <ng-container *ngIf="!obs.loading">
+                            <mat-option *ngFor="let option of (obs.results)!| sortBy:'asc':'nombre'" [value]="option"
+                                [ngClass]="{'selected-option': option === a['client_document'].value}">
+
+                                <div class="services__products">
+                                    <div
+                                        [innerHTML]="(option?.business_name) | firstLetterUppercase | highlight: toHighlight : c['client_document'].value">
+                                    </div>
+
+                                    <div
+                                        [innerHTML]="(option?.identification_document) | firstLetterUppercase | highlight: toHighlight : c['client_document'].value">
+                                    </div>
+                                </div>
+                            </mat-option>
+                        </ng-container>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </ng-container>
+
+            <div class="button_filters" (click)="cleanFilters()">
+                <mat-icon svgIcon="clean_search" />
+            </div>
+
+            <button color="primary" mat-flat-button (click)="crearCliente()">
+                Crear Cliente
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div style="background-color: #e7e7e7; border-radius: 1rem; display: flex; flex-wrap: wrap; flex-direction: column;"
+    *ngIf="edit_mode">
+
+    <div class="module_title" style=" padding-top: 1rem; padding-left: 1rem;">
+        Realizar Venta - Detalles del Cliente
+    </div>
+
+    <div style="padding: 2rem;">
+        <div style="display: flex; flex-direction: row; gap: 2rem; font-size: 16px; flex-wrap: wrap; color:#636363">
+            <div style="display: flex; flex-direction: column; gap:0.5;">
+                <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+                    <div style="font-weight: 600; min-width: 200px;">Nombre:</div>
+                    <div>{{clientUser.business_name}}</div>
+                </div>
+                <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+                    <div style="font-weight: 600; min-width: 200px;">Correo Electrónico:</div>
+                    <div> {{clientUser.email}}</div>
+                </div>
+            </div>
+
+            <div>
+                <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+                    <div style="font-weight: 600; min-width: 200px;">Documento de Identidad:</div>
+                    <div>{{clientUser.identification_document}}</div>
+                </div>
+                <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+                    <div style="font-weight: 600; min-width: 200px;">Teléfono:</div>
+                    <div>{{clientUser.phone}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

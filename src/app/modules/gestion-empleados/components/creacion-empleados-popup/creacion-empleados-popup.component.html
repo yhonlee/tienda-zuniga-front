@@ -1,0 +1,74 @@
+<div [formGroup]="formEmpleado" style="padding: 2rem; display: flex; gap: 2rem; flex-direction: column;">
+
+    <div class="module_title">
+        {{ this.edit_mode ? 'Actualizar Empleado' : 'Crear Empleado' }}
+    </div>
+
+    <div style="display: flex; gap: 1rem; flex-direction: column;">
+        <mat-form-field appearance="fill" style="min-width: 250px;">
+            <mat-label>Nombres</mat-label>
+            <input matInput placeholder="ingresar nombres" formControlName="name">
+            <mat-icon matSuffix>perm_identity</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style=" min-width: 250px;">
+            <mat-label>Apellidos</mat-label>
+            <input matInput placeholder="ingresar apellidos" formControlName="last_name">
+            <mat-icon matSuffix>perm_identity</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style=" min-width: 250px;">
+            <mat-label>DNI</mat-label>
+            <input matInput placeholder="ingresar DNI" formControlName="dni">
+            <mat-icon matSuffix svgIcon="document"></mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style=" min-width: 250px;">
+            <mat-label>Dirección</mat-label>
+            <input matInput placeholder="ingresar dirección" formControlName="address">
+            <mat-icon matSuffix>location_on</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-select formControlName="work_department" required placeholder="Seleccionar departamento de trabajo">
+                <ng-container *ngIf="(workdepartments$ | async) as listarWorkDepartments">
+                    <mat-option *ngFor="let listarWorkDepartment of listarWorkDepartments | sortBy:'asc':'name'"
+                        [value]="listarWorkDepartment">
+                        {{listarWorkDepartment.name}}</mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-select formControlName="job_position" required placeholder="Seleccionar posición">
+                <ng-container *ngIf="(jobPosition$ | async) as jobPositions">
+                    <mat-option *ngFor="let jobPosition of jobPositions | sortBy:'asc':'name'" [value]="jobPosition">
+                        {{jobPosition.name}}</mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style=" min-width: 250px;">
+            <mat-label>Salario</mat-label>
+            <input matInput placeholder="ingresar salario" formControlName="salary">
+            <mat-icon matSuffix>attach_money</mat-icon>
+        </mat-form-field>
+
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Fecha de Contrato</mat-label>
+            <input matInput [matDatepicker]="picker" matDatepickerTriggerFor="picker" formControlName="date_contract">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div style="display: flex; flex-direction: row; flex: 1; gap: 1rem;">
+            <button mat-flat-button color="warn" mat-dialog-close style="flex: 1;"> Cancelar</button>
+
+            <button mat-flat-button color="primary" (click)="crearEmpleado()" [disabled]="!formEmpleado.valid"
+            style="flex: 1;"> {{ this.edit_mode ? 'Actualizar' : 'Crear' }}</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="container_module" style="overflow: auto;">
+    <div class="module_title">
+        Predicciones de Ventas
+    </div>
+
+    <mat-tab-group (selectedTabChange)="onTabChange($event)">
+        <mat-tab label="Consulta de Predicciones">
+
+            <div [formGroup]="formEmpleado"
+                style="display: flex; flex-direction: column; gap: 1.5rem; padding-top: 1rem; padding-bottom: 1rem;">
+                <div style="display: flex; gap: 1rem; flex-direction: row; flex-wrap: wrap;">
+                    <ng-container
+                        *ngIf="{ results: filteredOptionsAprobador$ | async, loading: loadingAprobador$ | async } as obs">
+
+                        <mat-form-field appearance="fill" [ngClass]="{'alert': !formEmpleado.get('client')?.value}"
+                            style="min-width: 300px; width: 400px;">
+                            <input placeholder='Busca el producto por nombre' type="text" matInput
+                                formControlName="client" [matAutocomplete]="autoAprobador"
+                                (blur)="onFocusAutocompleteAprobador()" />
+
+                            <mat-icon *ngIf="!c['client'].value" matSuffix>search</mat-icon>
+                            <mat-icon *ngIf="c['client'].value" matSuffix class="icon_close"
+                                (click)="onClearAutocompleteAprobador()">close</mat-icon>
+
+                            <mat-autocomplete [displayWith]="onDisplayFnAprobador" #autoAprobador="matAutocomplete"
+                                (optionSelected)="onOptionSelectedAprobador($event)">
+                                <mat-option *ngIf="obs.loading">
+                                    Cargando...
+                                </mat-option>
+                                <mat-option disabled *ngIf="obs.results?.length === 0 && !obs.loading">
+                                    No se encontraron resultados
+                                </mat-option>
+                                <ng-container *ngIf="!obs.loading">
+                                    <mat-option *ngFor="let option of (obs.results)!| sortBy:'asc':'nombre'"
+                                        [value]="option" [ngClass]="{'selected-option': option === c['client'].value}">
+
+                                        <div class="services__products">
+                                            <div
+                                                [innerHTML]="(option?.name) | firstLetterUppercase | highlight: toHighlightAprobador : c['client'].value">
+                                            </div>
+                                        </div>
+                                    </mat-option>
+                                </ng-container>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </ng-container>
+
+                    <mat-form-field appearance="fill" style="min-width: 300px; width: 400px;">
+                        <mat-label>Selecciona el año</mat-label>
+                        <mat-select [(value)]="selectedYear" formControlName="anio">
+                            <mat-option *ngFor="let year of years" [value]="year">
+                                {{ year }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div style="display: flex; flex-direction: row; gap: 0.5rem; align-items: center;">
+                        <div class="button_filters" (click)="onSubmit()"><mat-icon svgIcon="search" /></div>
+                        <div class="button_filters" (click)="cleanFilters()"><mat-icon svgIcon="clean_search" /></div>
+                    </div>
+
+                    <div>
+                        <button mat-flat-button color="primary" *ngIf="mostrarData"
+                            (click)="detelePrediction()">Eliminar Predicción</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div style="display: flex; flex-direction: row; flex-wrap: wrap; overflow: auto; gap: 1rem">
+                <div
+                    style=" flex: 1 0 280px;  display: flex; flex-direction: column; gap: 2rem; justify-content: center; padding: 2rem; align-items: center; color: grey; background-color: white; border-radius: 1rem;">
+                    <div *ngIf="!mostrarData"
+                        style="display: flex; flex-direction: column; gap: 2rem; align-items: center;">
+                        <mat-icon svgIcon="not_found" />
+                        Busca un producto para mostrar información
+                    </div>
+
+
+                    <div *ngIf="mostrarData"
+                        style="display: flex; flex-direction: column; align-items: center; gap: 1rem">
+                        <div class="module_title">{{productoData.name}}</div>
+
+                        <div class="detalles">
+                            <div><span>Descripción: </span>{{productoData.description}}</div>
+                            <div><span>Precio Actual: </span>{{productoData.price}}</div>
+                            <!-- <div><span>Fecha de Creación: </span> {{ productoData.created_at | date:'dd-MM-yyyy' }}
+                            </div> -->
+                            <div><span>Stock Actual: </span>{{productoData.stock}}</div>
+                            <div><span>Estado Actual </span>{{productoData.id_state}}</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div
+                    style="flex: 2 0 280px;  display: flex; flex-direction: column; gap: 2rem; min-height: 500px; justify-content: center; padding: 1rem; align-items: center; color: grey; background-color: white; border-radius: 1rem;">
+                    <div *ngIf="!mostrarData"
+                        style="display: flex; flex-direction: column; gap: 2rem; align-items: center;">
+                        <mat-icon svgIcon="not_found" />
+                        Busca un producto para mostar la gráfica
+                    </div>
+
+                    <div *ngIf="mostrarData"
+                        style="display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 2rem;">
+                        <div
+                            style="font-size: 16px; font-weight: 500; gap: 1rem; display: flex; flex-direction: column;">
+                            <div style="color: #e1575a">Ventas Realizadas</div>
+                            <div style="color: #2962ff">Predicción de Ventas</div>
+                        </div>
+
+                        <div #container style=" width: 500px; height: 500px;"></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Carga de Predicción"> <app-drop-file #dropFile></app-drop-file></mat-tab>
+    </mat-tab-group>
+</div>

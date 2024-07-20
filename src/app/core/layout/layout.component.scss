@@ -1,0 +1,43 @@
+.example-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #EFEFEF !important;
+}
+
+.mat-drawer-inner-container {
+    background-color: white;
+    border-radius: 1.2rem;
+}
+
+mat-drawer-content {
+    margin-left: 113px !important;
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+    margin-right: 32px !important;
+    overflow: hidden !important;
+    height: calc(100vh - 32px) !important;
+    /* Restar el margen superior e inferior */
+}
+
+mat-drawer {
+    margin: 1rem;
+    background-color: transparent !important;
+    border-radius: 1.2rem !important;
+    width: 69px !important;
+    transition: width 0.3s ease;
+    box-shadow: 3px 7px 24px 0px rgba(0, 0, 0, 0.075) !important;
+}
+
+mat-drawer:hover {
+    margin: 1rem;
+    background-color: transparent !important;
+    border-radius: 1.2rem !important;
+    width: 284px !important;
+    box-shadow: 3px 7px 24px 0px rgba(0, 0, 0, 0.075);
+}
+
+@media (max-width: 1140px) {
+    mat-drawer-content {
+        margin-left: 32px !important;
+    }
+  }

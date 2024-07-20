@@ -1,0 +1,30 @@
+<div class="filtros_container" [formGroup]="formEmpleado">
+    <div style="display: flex; flex-direction: row; gap: 1.4rem; flex-wrap: wrap;">
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap:2rem;">
+            <mat-form-field appearance="fill" style="min-width: 250px; width: 300px;">
+                <mat-label>Empleado</mat-label>
+                <input matInput placeholder="ingresar nombre" formControlName="name"
+                    placeholder="Ingresa el nombre del empleado">
+                <mat-icon matSuffix>perm_identity</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-select formControlName="estados" required placeholder="Selecciona el estado" multiple>
+                    <ng-container *ngIf="(states$ | async) as states">
+                        <mat-option *ngFor="let state of states | sortBy:'asc':'name'" [value]="state">
+                            {{state.name}}</mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div style="display: flex; flex-direction: row; gap: 0.5rem; align-items: center;">
+            <div class="button_filters" (click)="onSubmit()"><mat-icon svgIcon="search" /></div>
+            <div class="button_filters" (click)="cleanFilters()"><mat-icon svgIcon="clean_search" /></div>
+        </div>
+    </div>
+
+    <div style="display: flex; flex-direction: row; gap: 1rem; align-items: center;">
+        <button mat-flat-button color="primary" (click)="crearEmpleado()">Crear Empleado</button>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="table_paginator_container">
+    <div class="table_container">
+        <table mat-table [dataSource]="dataSource" class="table" *ngIf="dataSource.data.length != 0">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Nombre del Cliente </th>
+                <td mat-cell *matCellDef="let element"> {{element.business_name}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="document">
+                <th mat-header-cell *matHeaderCellDef> Documento de Identidad </th>
+                <td mat-cell *matCellDef="let element"> {{element.identification_document}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> Precio de Venta Total </th>
+                <td mat-cell *matCellDef="let element"> S/{{element.total_price}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="created">
+                <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="accion">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element">
+                    <div style="display: flex; flex-direction: row; gap: 1rem;">
+                        <div (click)="openEdit(element)" style="cursor: pointer;">
+                            <mat-icon svgIcon="see" />
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <div style="display: flex; flex-direction: column; gap: 2rem; background-color: white; justify-content: center; padding: 2rem; align-items: center; color: grey;"
+            *ngIf="dataSource.data.length == 0">
+            <mat-icon svgIcon="not_found" />
+            No se encontrarón registros
+        </div>
+    </div>
+
+    <mat-paginator class="paginator" *ngIf="onHideDisplayedPaginator(paginador)" [length]="paginador.totalElements"
+        [pageSize]="paginador.per_page" [pageIndex]="paginador.actual_page" [showFirstLastButtons]="true"
+        [hidePageSize]="true" [pageSizeOptions]="paginador.pageSizeOptions" (page)="onChangePage($event)">
+    </mat-paginator>
+</div>

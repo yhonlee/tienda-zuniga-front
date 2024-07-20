@@ -1,0 +1,76 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened class="menu">
+    <div class="container_sidenav">
+      <div class="top_side">
+
+        <div class="icon_logo">
+          <div class="user_bottom">
+            <mat-icon svgIcon="logo_zunhiga" class="logo" />
+          </div>
+        </div>
+
+        <div class="modulos">
+          <div class="container_module" [routerLink]="'/ventas'" routerLinkActive="active-link">
+            <div class="container_icon">
+              <mat-icon svgIcon="usuarios_ventas" />
+            </div>
+            Realizar Venta
+          </div>
+
+          <div class="container_module" [routerLink]="'/gestion-ventas'" routerLinkActive="active-link" *ngIf="rol()">
+            <div class="container_icon">
+              <mat-icon svgIcon="ventas" />
+            </div>
+            Gestión de Ventas
+          </div>
+
+          <div class="container_module" [routerLink]="'/gestion-clientes'" routerLinkActive="active-link" *ngIf="rol()">
+            <div class="container_icon">
+              <mat-icon svgIcon="clientes" />
+            </div>
+            Gestión de Clientes
+          </div>
+
+          <div class="container_module" [routerLink]="'/gestion-productos'" routerLinkActive="active-link" *ngIf="rol()">
+            <div class="container_icon">
+              <mat-icon svgIcon="productos" />
+            </div>
+            Gestión de Productos
+          </div>
+
+          <div class="container_module" [routerLink]="'/gestion-empleados'" routerLinkActive="active-link" *ngIf="rol()">
+            <div class="container_icon">
+              <mat-icon svgIcon="colaboradores" />
+            </div>
+            Gestión de Empleados
+          </div>
+
+          <div class="container_module" [routerLink]="'/gestion-usuarios'" routerLinkActive="active-link" *ngIf="rol()">
+            <div class="container_icon">
+              <mat-icon svgIcon="users" />
+            </div>
+            Gestión de Usuarios
+          </div>
+
+          <div class="container_module" [routerLink]="'/graficos-ventas'" routerLinkActive="active-link" *ngIf="rol()">
+            <div class="container_icon">
+              <mat-icon svgIcon="ventas_graphics" />
+            </div>
+            Gráficos de Ventas
+          </div>
+
+          <div class="container_module" [routerLink]="'/predicciones'" routerLinkActive="active-link" *ngIf="rol()">
+            <div class="container_icon">
+              <mat-icon svgIcon="graficos" />
+            </div>
+            Predicciones de Ventas
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content style="display: flex; flex-direction: column;">
+    <ng-content></ng-content>
+  </mat-drawer-content>
+</mat-drawer-container>

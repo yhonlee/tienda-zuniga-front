@@ -1,0 +1,96 @@
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; overflow: auto; gap: 1rem">
+    <div class="container_izq">
+        <ng-container [formGroup]="formEmpleado">
+            <div *ngIf="{ results: filteredOptionsAprobador$ | async, loading: loadingAprobador$ | async } as obs"
+                style="display: flex; width: 100%; gap: 1rem;">
+
+                <mat-form-field appearance="fill" [ngClass]="{'alert': !formEmpleado.get('client')?.value}"
+                    style="flex: 1">
+                    <input placeholder='Busca el producto por nombre' type="text" matInput formControlName="client"
+                        [matAutocomplete]="autoAprobador" (blur)="onFocusAutocompleteAprobador()" />
+
+                    <mat-icon *ngIf="!c['client'].value" matSuffix>search</mat-icon>
+                    <mat-icon *ngIf="c['client'].value" matSuffix class="icon_close"
+                        (click)="onClearAutocompleteAprobador()">close</mat-icon>
+
+                    <mat-autocomplete [displayWith]="onDisplayFnAprobador" #autoAprobador="matAutocomplete"
+                        (optionSelected)="onOptionSelectedAprobador($event)">
+                        <mat-option *ngIf="obs.loading">
+                            Cargando...
+                        </mat-option>
+                        <mat-option disabled *ngIf="obs.results?.length === 0 && !obs.loading">
+                            No se encontraron resultados
+                        </mat-option>
+                        <ng-container *ngIf="!obs.loading">
+                            <mat-option *ngFor="let option of (obs.results)!| sortBy:'asc':'nombre'" [value]="option"
+                                [ngClass]="{'selected-option': option === c['client'].value}">
+
+                                <div class="services__products">
+                                    <div
+                                        [innerHTML]="(option?.name) | firstLetterUppercase | highlight: toHighlightAprobador : c['client'].value">
+                                    </div>
+                                </div>
+                            </mat-option>
+                        </ng-container>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <div class="button_filters" (click)="cleanFilters()"><mat-icon svgIcon="clean_search" /></div>
+
+            </div>
+        </ng-container>
+
+
+        <div class="contenedor">
+            <ngx-file-drop class="border-container" [multiple]="false" (onFileDrop)="onDrop($event)" accept=".csv">
+                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    <div class="container_upload" *ngIf="files.length == 0">
+                        <div>
+                            <mat-icon class="icon_upload" svgIcon="sublinea_upload"></mat-icon>
+                        </div>
+                        <div class="labels__upload">
+                            <div class="label_title">Importa archivo (.csv)</div>
+                            <div class="label_descripcion">Importa el archivo para inicia la predicción</div>
+                        </div>
+                        <div>
+                            <button mat-button class="button_upload" (click)="openFileSelector()">Seleccionar
+                                archivo</button>
+                        </div>
+                    </div>
+                    <div class="container_upload" *ngIf="files.length > 0">
+                        <div>
+                            <mat-icon class="icon_upload" svgIcon="sublinea_upload"></mat-icon>
+                        </div>
+                        <div class="labels__upload">
+                            <div class="label_title">Archivo seleccionado</div>
+                            <div class="label_descripcion">{{ files[0].relativePath }}</div>
+                        </div>
+                        <div>
+                            <button mat-button class="button_upload" (click)="openFileSelector()">Cambiar
+                                archivo</button>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngx-file-drop>
+
+            <button mat-flat-button color="primary" (click)="onSubmit()"
+                [disabled]="!seleccione || files.length < 1">Cargar</button>
+        </div>
+    </div>
+
+
+    <div
+        style="flex: 2 0 280px;  display: flex; flex-direction: column; gap: 2rem; min-height: 500px; justify-content: center; padding: 1rem; align-items: center; color: grey; background-color: white; border-radius: 1rem;">
+        <div *ngIf="!mostrarData" style="display: flex; flex-direction: column; gap: 2rem; align-items: center;">
+            <mat-icon svgIcon="not_found" />
+            Carga una predicción para mostrar los datos
+        </div>
+
+        <div *ngIf="mostrarData"
+            style="display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 2rem;">
+            <div #chartContainer style=" width: 500px; height: 500px;"></div>
+        </div>
+
+    </div>
+
+</div>

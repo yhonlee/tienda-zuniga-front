@@ -1,0 +1,81 @@
+<div [formGroup]="formEmpleado" style="padding: 2rem; display: flex; gap: 1rem; flex-direction: column;">
+
+    <div class="module_title">
+        {{ this.edit_mode ? 'Actualizar Usuario' : 'Crear Usuario' }}
+    </div>
+
+    <div style="display: flex; gap: 1rem; flex-direction: column;">
+        <ng-container>
+            <div class="seccion__usuarios">
+                <ng-container
+                    *ngIf="{ results: filteredOptionsAprobador$ | async, loading: loadingAprobador$ | async } as obs">
+                    <div class="seccion__usuarios">
+                        <mat-form-field appearance="fill" [ngClass]="{'alert': !formEmpleado.get('employee')?.value}">
+                            <input placeholder='Buscar Empleado' type="text" matInput formControlName="employee"
+                                [matAutocomplete]="autoAprobador" (blur)="onFocusAutocompleteAprobador()" />
+
+                            <mat-icon *ngIf="!c['employee'].value" matSuffix>search</mat-icon>
+                            <mat-icon *ngIf="c['employee'].value" matSuffix class="icon_close"
+                                (click)="onClearAutocompleteAprobador()">close</mat-icon>
+
+                            <mat-autocomplete [displayWith]="onDisplayFnAprobador" #autoAprobador="matAutocomplete"
+                                (optionSelected)="onOptionSelectedAprobador($event)">
+                                <mat-option *ngIf="obs.loading">
+                                    Cargando...
+                                </mat-option>
+                                <mat-option disabled *ngIf="obs.results?.length === 0 && !obs.loading">
+                                    No se encontraron resultados
+                                </mat-option>
+                                <ng-container *ngIf="!obs.loading">
+                                    <mat-option *ngFor="let option of (obs.results)!| sortBy:'asc':'nombre'"
+                                        [value]="option"
+                                        [ngClass]="{'selected-option': option === c['employee'].value}">
+
+                                        <div class="services__products">
+                                            <div
+                                                [innerHTML]="(option?.name + ' ' + option?.lastname) | firstLetterUppercase | highlight: toHighlightAprobador : c['employee'].value">
+                                            </div>
+                                        </div>
+                                    </mat-option>
+                                </ng-container>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+
+
+        <mat-form-field appearance="fill">
+            <mat-select formControlName="rol" required placeholder="Seleccionar departamento de trabajo">
+                <ng-container *ngIf="(roles$ | async) as roles">
+                    <mat-option *ngFor="let rol of roles | sortBy:'asc':'name'" [value]="rol">
+                        {{rol.name}}</mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="module_title">
+            {{ this.edit_mode ? 'Actualizar Nombre de Usuario' : 'Crear Accesos del Usuario' }}
+        </div>
+
+        <mat-form-field appearance="fill" style="min-width: 250px;">
+            <mat-label>Nombre de Usuario</mat-label>
+            <input matInput placeholder="ingresar nombre de usuario" formControlName="usuario">
+            <mat-icon matSuffix>perm_identity</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!edit_mode" appearance="fill" style=" min-width: 250px;">
+            <mat-label>Contraseña</mat-label>
+            <input matInput placeholder="ingresar contraseña" formControlName="password" type="password">
+            <mat-icon matSuffix>vpn_key</mat-icon>
+        </mat-form-field>
+
+        <div style="display: flex; flex-direction: row; flex: 1; gap: 1rem;">
+            <button mat-flat-button color="warn" mat-dialog-close style="flex: 1;"> Cancelar</button>
+
+            <button mat-flat-button color="primary" (click)="crearEmpleado()" [disabled]="!formEmpleado.valid"
+                style="flex: 1;"> {{ this.edit_mode ? 'Actualizar' : 'Crear' }}</button>
+        </div>
+    </div>
+</div>

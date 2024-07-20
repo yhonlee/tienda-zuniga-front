@@ -1,0 +1,30 @@
+.container_module {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 92px) !important;
+}
+
+.module_title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #4a68af
+}
+
+.table_component {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+@media (max-width: 1140px) {
+    ::ng-deep .crear_empleados {
+        width: 100vw !important;
+    }
+}
+
+@media (max-width: 1140px) {
+    ::ng-deep .crear_empleados {
+        width: 100vw !important;
+    }
+}

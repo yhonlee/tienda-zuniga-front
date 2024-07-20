@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 603.39 85.11">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #6c90ca;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9, .cls-10 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #c4e0e4;
+      }
+
+      .cls-3 {
+        fill: #aad0e7;
+      }
+
+      .cls-4 {
+        fill: #86a7d8;
+      }
+
+      .cls-5 {
+        fill: #4362ab;
+      }
+
+      .cls-11 {
+        font-family: Poppins-Bold, Poppins;
+        font-size: 37.61px;
+        font-weight: 700;
+      }
+
+      .cls-11, .cls-10 {
+        fill: #687fbe;
+      }
+
+      .cls-12 {
+        font-family: Poppins-Regular, Poppins;
+        font-size: 25.85px;
+      }
+
+      .cls-12, .cls-6 {
+        fill: #8eccf1;
+      }
+
+      .cls-7 {
+        fill: #4ec1ea;
+      }
+
+      .cls-8 {
+        fill: #b2dee6;
+      }
+
+      .cls-9 {
+        fill: #3eb8ea;
+      }
+    </style>
+  </defs>
+  <g>
+    <polygon class="cls-7" points="119.06 41.82 104.7 29.67 98.19 34.7 109.89 48.91 119.06 41.82"/>
+    <polygon class="cls-3" points="83.94 17.39 95.64 31.6 101.57 27.02 87.2 14.87 83.94 17.39"/>
+    <polygon class="cls-10" points="141.01 60.4 127.76 70.63 139.67 85.11 154.33 71.67 141.01 60.4"/>
+    <polygon class="cls-2" points="81.39 14.29 84.07 12.22 69.63 0 81.39 14.29 81.39 14.29"/>
+    <polygon class="cls-4" points="137.88 57.74 122.19 44.48 112.44 52.01 125.21 67.53 137.88 57.74"/>
+    <polygon class="cls-9" points="109.89 48.91 98.19 34.7 41.24 34.7 29.61 48.91 109.89 48.91"/>
+    <polygon class="cls-1" points="125.21 67.53 112.44 52.01 112.44 52.01 27.08 52.01 14.38 67.53 125.21 67.53"/>
+    <polygon class="cls-6" points="43.78 31.6 95.64 31.6 83.94 17.39 83.94 17.39 55.4 17.39 43.78 31.6"/>
+    <polygon class="cls-5" points="127.76 70.63 127.76 70.63 11.84 70.63 0 85.11 139.67 85.11 127.76 70.63"/>
+    <polygon class="cls-8" points="81.39 14.29 69.63 0 57.94 14.29 81.39 14.29"/>
+  </g>
+  <text class="cls-11" transform="translate(165.82 39.59)"><tspan x="0" y="0">INDUSTRIAS JC ZUÑIGA</tspan></text>
+  <text class="cls-12" transform="translate(243.69 72.54)"><tspan x="0" y="0">AIRE ACONDICIONADO</tspan></text>
+</svg>

@@ -1,0 +1,38 @@
+<div [formGroup]="formEmpleado" style="padding: 2rem; display: flex; gap: 2rem; flex-direction: column;">
+
+    <div class="module_title">
+        {{ this.edit_mode ? 'Actualizar Producto' : 'Crear Producto' }}
+    </div>
+
+
+    <mat-form-field appearance="fill" style="min-width: 250px;">
+        <mat-label>Nombre del Producto</mat-label>
+        <input matInput placeholder="ingresar nombre del producto" formControlName="name_product">
+        <mat-icon matSuffix>shopping_basket</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="min-width: 250px;">
+        <mat-label>Descripción</mat-label>
+        <input matInput placeholder="ingresar descripción" formControlName="description">
+        <mat-icon matSuffix>edit_note</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="min-width: 250px;">
+        <mat-label>Precio Unitario</mat-label>
+        <input matInput placeholder="ingresar precio unitario" type="number" formControlName="price">
+        <mat-icon matSuffix>attach_money</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style=" min-width: 250px;">
+        <mat-label>Stock</mat-label>
+        <input matInput placeholder="ingresar stock actual" type="number" formControlName="stock">
+        <mat-icon matSuffix>outbox</mat-icon>
+    </mat-form-field>
+
+    <div style="display: flex; flex-direction: row; flex: 1; gap: 1rem;">
+        <button mat-flat-button color="warn" mat-dialog-close style="flex: 1;"> Cancelar</button>
+
+        <button mat-flat-button color="primary" (click)="crearProducto()" [disabled]="!formEmpleado.valid"
+            style="flex: 1;"> {{ this.edit_mode ? 'Actualizar' : 'Crear' }}</button>
+    </div>
+</div>

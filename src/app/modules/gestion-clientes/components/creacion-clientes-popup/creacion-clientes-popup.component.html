@@ -1,0 +1,45 @@
+<div [formGroup]="formEmpleado" style="padding: 2rem; display: flex; gap: 2rem; flex-direction: column;">
+
+    <div class="module_title">
+        {{ this.edit_mode ? 'Actualizar Cliente' : 'Crear Cliente' }}
+    </div>
+
+    <div style="display: flex; gap: 1rem; flex-direction: column;">
+        <mat-form-field appearance="fill" style="min-width: 250px;">
+            <mat-label>Nombre del cliente</mat-label>
+            <input matInput placeholder="ingresar nombres" formControlName="business_name">
+            <mat-icon matSuffix>perm_identity</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style=" min-width: 250px;">
+            <mat-label>RUC / DNI / Carnet de Extranjeria</mat-label>
+            <input matInput placeholder="ingresar documento de identidad" formControlName="identification_document">
+            <mat-icon matSuffix svgIcon="document"></mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style=" min-width: 250px;">
+            <mat-label>Dirección</mat-label>
+            <input matInput placeholder="ingresar dirección" formControlName="address">
+            <mat-icon matSuffix>location_on</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="min-width: 250px;">
+            <mat-label>Teléfono</mat-label>
+            <input matInput placeholder="ingresar número de teléfono" formControlName="phone" type="tel">
+            <mat-icon matSuffix>smartphone</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="min-width: 250px;">
+            <mat-label>Correo Electrónico</mat-label>
+            <input matInput placeholder="ingresar correo electrónico" formControlName="email" type="email">
+            <mat-icon matSuffix>mail_outline</mat-icon>
+        </mat-form-field>
+
+        <div style="display: flex; flex-direction: row; flex: 1; gap: 1rem;">
+            <button mat-flat-button color="warn" mat-dialog-close style="flex: 1;"> Cancelar</button>
+
+            <button mat-flat-button color="primary" (click)="crearCliente()" [disabled]="!formEmpleado.valid"
+                style="flex: 1;"> {{ this.edit_mode ? 'Actualizar' : 'Crear' }}</button>
+        </div>
+    </div>
+</div>

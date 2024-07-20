@@ -1,0 +1,202 @@
+.contenedor {
+  background-color: white;
+  border-radius: 28px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+
+.border-container {
+  flex: 1.3;
+  border-color: #215cff;
+  border-radius: 14px;
+  border-width: 2px;
+  border-style: dashed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.border-container:hover {
+  border-color: #999;
+}
+
+.border-container.drag-over {
+  border-color: #999;
+  cursor: pointer;
+}
+
+.container_upload {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1rem 1rem 1rem;
+}
+
+:host ::ng-deep .ngx-file-drop__drop-zone {
+  // height: 100px;
+  border: none !important;
+  border-radius: 0px !important;
+  width: 100% !important;
+  ;
+  margin: 0px !important;
+  ;
+}
+
+:host ::ng-deep .ngx-file-drop__content {
+  color: black !important;
+}
+
+.button_upload {
+  border-color: #468344;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  color: #468344;
+  font-family: "poppins-Bold";
+  font-weight: bold;
+}
+
+.icon_upload {
+  height: 56px;
+  width: 56px;
+}
+
+.labels__upload {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .label_title {
+    font-family: 'poppins-Bold';
+    font-size: 18px;
+  }
+
+  .label_descripcion {
+    font-family: 'poppins-Light';
+    font-size: 15px;
+  }
+}
+
+
+
+.container_info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 250px;
+
+  ::ng-deep .mat-form-field-infix {
+    border-top-width: 3px !important;
+  }
+}
+
+.input_sublinea {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  ::ng-deep .mat-form-field-infix {
+    border-top-width: 3px !important;
+  }
+}
+
+::ng-deep .input_sublinea .mat-form-field-appearance-fill .mat-form-field-flex {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #E5E5E5;
+  min-width: 200px !important;
+  background: white;
+  height: 65px;
+}
+
+::ng-deep .input_sublinea .mat-form-field-suffix {
+  height: auto;
+  width: auto;
+}
+
+::ng-deep .input_sublinea .mat-form-field-label-wrapper {
+  display: none;
+  padding: 0px;
+}
+
+::ng-deep .input_sublinea .mat-form-field-wrapper {
+  padding: 0px;
+}
+
+::ng-deep .input_sublinea .mat-form-field-infix {
+  border-top: 0px !important;
+  padding: 0px !important;
+}
+
+::ng-deep .input_sublinea .mat-form-field-label {
+  color: #3F454F !important
+}
+
+::ng-deep .input_sublinea .mat-form-field {
+  line-height: normal !important;
+}
+
+::ng-deep .input_sublinea .mat-form-field-underline {
+  display: none !important;
+}
+
+
+.contenedor__botones {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.container_izq {
+  flex: 1 0 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  padding: 2rem;
+  align-items: center;
+  color: grey;
+  background-color: white;
+  border-radius: 1rem;
+}
+
+::ng-deep .ngx-file-drop__drop-zone {
+  height: auto !important;
+}
+
+::ng-deep .ngx-file-drop__content {
+  height: auto !important;
+}
+
+
+.button_filters {
+  background-color: whitesmoke;
+  width: 56px;
+  height: 56px;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.button_filters:active {
+  background-color: rgb(197, 197, 197);
+  transform: scale(0.8);
+}
+
+.button_filters:hover {
+  background-color: rgb(226, 226, 226);
+}

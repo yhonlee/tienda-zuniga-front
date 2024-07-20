@@ -1,0 +1,39 @@
+<div class="main_container">
+    <div class="box_container">
+        <div class="left_side">
+            <img src="../../../assets/img/front.jpg" class="imagen">
+        </div>
+
+        <div class="right_side">
+            <mat-icon svgIcon="logo_zunhiga" class="logo" />
+            <form
+                style="display: flex; flex-direction: column; width: 100%; padding: 2rem; box-sizing: border-box; gap: 1rem;"
+                [formGroup]="formTemplate" (ngSubmit)="onSubmit()">
+
+                <div [ngClass]="{'input__error': isErrorAuthenticated}"
+                    style="display: flex; justify-content: center; color: #687fbe">{{message}}
+                </div>
+
+                <mat-form-field appearance="outline" style="flex: 1">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input matInput placeholder="ingresar nombre" formControlName="username">
+                    <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" style="flex: 1">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput placeholder="ingresar contraseña" [type]="hide ? 'password' : 'text'"
+                        formControlName="password">
+                    <mat-icon matSuffix (click)="show()">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+
+                <div style="display: flex; justify-content: flex-end; flex: 1;">
+                    <button mat-flat-button color="primary" style="flex: 1" [disabled]="!formTemplate.valid"
+                        type="submit">Ingresar</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>

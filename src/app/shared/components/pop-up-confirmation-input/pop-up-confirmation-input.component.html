@@ -1,0 +1,30 @@
+<div class="dialog__content">
+    <form [formGroup]="formTemplate">
+        <img *ngIf="data.icon" class="dialog__content__image" [src]="data.icon" [alt]="data.icon">
+
+        <div class="dialog__content__message">
+            <span>{{ data.title }}</span>
+            <span *ngIf="data.subtitle" class="dialog__content__message--subtitle">{{ data.subtitle }}</span>
+        </div>
+
+        <div class="dialog__content__description">
+            <label class="dialog__content__message__reason">{{ data.labelText }}*</label>
+            <mat-form-field appearance="outline">
+                <textarea [placeholder]="data.labelTextPlaceholder" formControlName="description" matInput
+                    cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="6" cdkAutosizeMaxRows="6"
+                    [maxlength]="data.limitMaxLength || '250'"></textarea>
+            </mat-form-field>
+            <div class="dialog__content__description__contador">
+                <span>{{ counter + '/' + (data.limitMaxLength || '250') }} </span>
+            </div>
+        </div>
+
+        <div class="dialog__content__buttons">
+            <button type="button" [class]="data.buttonCancelColor || 'color-warn'" [mat-dialog-close]="false"
+                mat-flat-button>{{ data.buttonCancelText || 'Cancelar'}}</button>
+            <button type="submit" [class]="data.buttonConfirmColor" [mat-dialog-close]="form['description'].value"
+                [disabled]="!formTemplate.valid" mat-button>{{
+                data.buttonConfirmText }}</button>
+        </div>
+    </form>
+</div>
